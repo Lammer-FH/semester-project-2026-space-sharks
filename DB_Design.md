@@ -1,51 +1,75 @@
-hotel
-    PK          id
-    varchar     name
-    varchar     description
-    varchar     location
-    varchar     image_url
+# Database Design
 
+## Tables
 
-room
-    PK          id
-    FK          hotel_id        -> hotel.id
-    varchar     name
-    varchar     description
-    int         price_per_night
-    int         max_occupants
-    varchar     image_url
+### hotel
 
+| Key | Column | Type | Reference |
+|---|---|---|---|
+| PK | id | int | |
+| | name | varchar | |
+| | description | varchar | |
+| | location | varchar | |
+| | image_url | varchar | |
 
-guest
-    PK          id
-    varchar     first_name
-    varchar     last_name
-    varchar     email
+### room
 
+| Key | Column | Type | Reference |
+|---|---|---|---|
+| PK | id | int | |
+| FK | hotel_id | int | hotel.id |
+| | name | varchar | |
+| | description | varchar | |
+| | price_per_night | int | |
+| | max_occupants | int | |
+| | image_url | varchar | |
 
-booking
-    PK          id
-    FK          room_id         -> room.id
-    FK          guest_id        -> guest.id
-    date        start_date
-    date        end_date
-    bool        breakfast
-    bool        confirmed
-    timestamp   created_at
+### guest
 
+| Key | Column | Type | Reference |
+|---|---|---|---|
+| PK | id | int | |
+| | first_name | varchar | |
+| | last_name | varchar | |
+| | email | varchar | |
 
-feature
-    PK          id
-    varchar     name
-    varchar     icon
+### booking
 
+| Key | Column | Type | Reference |
+|---|---|---|---|
+| PK | id | int | |
+| FK | room_id | int | room.id |
+| FK | guest_id | int | guest.id |
+| | start_date | date | |
+| | end_date | date | |
+| | breakfast | boolean | |
+| | confirmed | boolean | |
+| | created_at | timestamp | |
 
-room_feature
-    PK, FK      room_id         -> room.id
-    PK, FK      feature_id      -> feature.id
+### feature
 
-relationships
-    hotel        1  ---  n    room
-    room         1  ---  n    booking
-    guest        1  ---  n    booking
-    room         n  ---  m    feature   via room_feature
+| Key | Column | Type | Reference |
+|---|---|---|---|
+| PK | id | int | |
+| | name | varchar | |
+| | icon | varchar | |
+
+### room_feature
+
+| Key | Column | Type | Reference |
+|---|---|---|---|
+| PK, FK | room_id | int | room.id |
+| PK, FK | feature_id | int | feature.id |
+
+## Relationships
+
+| Relationship | Meaning |
+|---|---|
+| hotel 1 --- n room | One hotel has many rooms |
+| room 1 --- n booking | One room can have many bookings |
+| guest 1 --- n booking | One guest can make many bookings |
+| room n --- m feature via room_feature | Rooms can have many features and features can belong to many rooms |
+
+## UML Diagram
+
+![RDBMS UML](rdbms_uml.png)

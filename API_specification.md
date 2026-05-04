@@ -1,25 +1,66 @@
-/user/:ID - GET - Display Users bookings and personal details
-    only displays data, if the current user is the requested user, otherwise 404
-/user/:ID - PUT - Update User Data
-    only displays data, if the current user is the requested user, otherwise 404
-/user/:ID - DELETE - delete User
-    only displays data, if the current user is the requested user, otherwise 404
-/user - POST - Register a new User
+# API Specification
 
-/hotels - GET - Display all hotels
-/hotels?hotels_shown=X&page=Y - GET - get hotel info
-    dispalys hotel info if hotel exists, 404 otherwise
-    hotels_shown - positive integer, how many hotels are shown per page
-    page - page selector
-/hotel/:ID - GET - get hotel info
-    dispalys hotel info if hotel exists, 404 otherwise
+## User
 
-/hotel/:ID/rooms - GET - Display all rooms of hotel :ID
-    only displays data, if hotel with this id exists, otherwise 404
-/hotel/:HOTEL_ID/room/:ROOM_ID - GET - Display details of Room ROOM_ID of hotel HOTEL_ID
+### GET /user/{id}
+Display user's bookings and personal details.  
+Returns data only if the current user matches the requested user, otherwise `404`.
 
-/hotel/:HOTEL_ID/room/:ROOM_ID/availability?start_date=X&end_date=Y - GET - checks availability of an hotel room
-    returns true or false if the room exists, 404 otherwise
+### PUT /user/{id}
+Update user data.  
+Allowed only if the current user matches the requested user, otherwise `404`.
 
-/hotel/:HOTEL_ID/room/:ROOM_ID/booking - POST - Request booking of Room ROOM_ID of hotel HOTEL_ID
-/hotel/:HOTEL_ID/room/:ROOM_ID/booking - GET -  Get booking information of Room ROOM_ID of hotel HOTEL_ID
+### DELETE /user/{id}
+Delete user.  
+Allowed only if the current user matches the requested user, otherwise `404`.
+
+### POST /user
+Register a new user.
+
+---
+
+## Hotels
+
+### GET /hotels
+Display all hotels.
+
+### GET /hotels?hotels_shown=X&page=Y
+Paginated hotel list.  
+- `hotels_shown`: number of hotels per page  
+- `page`: page number  
+
+### GET /hotel/{id}
+Get hotel details.  
+Returns `404` if hotel does not exist.
+
+---
+
+## Rooms
+
+### GET /hotel/{id}/rooms
+Display all rooms for a given hotel.  
+Returns `404` if hotel does not exist.
+
+### GET /hotel/{hotel_id}/room/{room_id}
+Display details of a specific room.
+
+---
+
+## Availability
+
+### GET /hotel/{hotel_id}/room/{room_id}/availability?start_date=X&end_date=Y
+Check if a room is available for a given period.  
+Returns:
+- `true` if available  
+- `false` if not available  
+Returns `404` if room does not exist.
+
+---
+
+## Booking
+
+### POST /hotel/{hotel_id}/room/{room_id}/booking
+Request booking of a room.
+
+### GET /hotel/{hotel_id}/room/{room_id}/booking
+Get booking information for a room.

@@ -1,29 +1,51 @@
 hotel
     PK          id
-    vchar       name
-    vchar       description
-    location    location
-    
-room
-    PK1         id          - part of pk
-    FPK         hotel_id    - part of pk
+    varchar     name
+    varchar     description
+    varchar     location
+    varchar     image_url
 
-    vchar       description
+
+room
+    PK          id
+    FK          hotel_id        -> hotel.id
+    varchar     name
+    varchar     description
     int         price_per_night
     int         max_occupants
+    varchar     image_url
 
-booking
-    PK1         id          - part of pk
-    FPK         hotel_id    - part of pk
-    FPK         room_id     - part of pk
-
-    FPK         guest
-    date        start_date
-    date        end_date 
-    bool        confirmed
 
 guest
     PK          id
-    vchar       first_name
-    vchar       last_name
-    vchar       email
+    varchar     first_name
+    varchar     last_name
+    varchar     email
+
+
+booking
+    PK          id
+    FK          room_id         -> room.id
+    FK          guest_id        -> guest.id
+    date        start_date
+    date        end_date
+    bool        breakfast
+    bool        confirmed
+    timestamp   created_at
+
+
+feature
+    PK          id
+    varchar     name
+    varchar     icon
+
+
+room_feature
+    PK, FK      room_id         -> room.id
+    PK, FK      feature_id      -> feature.id
+
+relationships
+    hotel        1  ---  n    room
+    room         1  ---  n    booking
+    guest        1  ---  n    booking
+    room         n  ---  m    feature   via room_feature

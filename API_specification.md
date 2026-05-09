@@ -24,11 +24,11 @@ Register a new guest.
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `201 Created` | Guest created successfully |
+| Status            | Description                                      |
+|-------------------|--------------------------------------------------|
+| `201 Created`     | Guest created successfully                       |
 | `400 Bad Request` | Validation error (missing fields, invalid email) |
-| `409 Conflict` | Email already registered |
+| `409 Conflict`    | Email already registered                         |
 
 **Response Body (201):**
 
@@ -47,9 +47,9 @@ Get guest details and their bookings.
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `200 OK` | Guest found |
+| Status          | Description          |
+|-----------------|----------------------|
+| `200 OK`        | Guest found          |
 | `404 Not Found` | Guest does not exist |
 
 **Response Body (200):**
@@ -90,11 +90,11 @@ Update guest data.
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `200 OK` | Guest updated |
-| `400 Bad Request` | Validation error |
-| `404 Not Found` | Guest does not exist |
+| Status            | Description          |
+|-------------------|----------------------|
+| `200 OK`          | Guest updated        |
+| `400 Bad Request` | Validation error     |
+| `404 Not Found`   | Guest does not exist |
 
 ### DELETE /guests/{id}
 
@@ -102,10 +102,10 @@ Delete a guest.
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `204 No Content` | Guest deleted |
-| `404 Not Found` | Guest does not exist |
+| Status           | Description          |
+|------------------|----------------------|
+| `204 No Content` | Guest deleted        |
+| `404 Not Found`  | Guest does not exist |
 
 ---
 
@@ -117,15 +117,15 @@ Get all hotels (paginated).
 
 **Query Parameters:**
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `page` | int | 0 | Page number (zero-based) |
-| `size` | int | 5 | Number of hotels per page |
+| Parameter | Type | Default | Description               |
+|-----------|------|---------|---------------------------|
+| `page`    | int  | 0       | Page number (zero-based)  |
+| `size`    | int  | 5       | Number of hotels per page |
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
+| Status   | Description    |
+|----------|----------------|
 | `200 OK` | List of hotels |
 
 **Response Body (200):**
@@ -154,9 +154,9 @@ Get hotel details.
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `200 OK` | Hotel found |
+| Status          | Description          |
+|-----------------|----------------------|
+| `200 OK`        | Hotel found          |
 | `404 Not Found` | Hotel does not exist |
 
 **Response Body (200):**
@@ -175,22 +175,23 @@ Get hotel details.
 
 ## Rooms
 
-### GET /hotels/{hotelId}/rooms
+### GET /rooms
 
 Get all rooms for a hotel (paginated).
 
 **Query Parameters:**
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `page` | int | 0 | Page number (zero-based) |
-| `size` | int | 5 | Number of rooms per page |
+| Parameter  | Type | Default | Description                                    |
+|------------|------|---------|------------------------------------------------|
+| `page`     | int  | 0       | Page number (zero-based)                       |
+| `size`     | int  | 5       | Number of rooms per page                       |
+| `hotel_id` | int  | none    | id of hotel from which rooms are to be queried |
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `200 OK` | List of rooms |
+| Status          | Description          |
+|-----------------|----------------------|
+| `200 OK`        | List of rooms        |
 | `404 Not Found` | Hotel does not exist |
 
 **Response Body (200):**
@@ -219,15 +220,23 @@ Get all rooms for a hotel (paginated).
 }
 ```
 
-### GET /hotels/{hotelId}/rooms/{roomId}
+### GET /rooms/{roomId}
 
 Get details of a specific room.
 
+**Query Parameters:**
+
+| Parameter  | Type | Default | Description               | required |
+|------------|------|---------|---------------------------|----------|
+| `page`     | int  | 0       | Page number (zero-based)  | no       |
+| `size`     | int  | 5       | Number of rooms per page  | no       |
+| `hotel_id` | int  | -       | hotel the room belongs to | yes      |
+
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `200 OK` | Room found |
+| Status          | Description                  |
+|-----------------|------------------------------|
+| `200 OK`        | Room found                   |
 | `404 Not Found` | Hotel or room does not exist |
 
 **Response Body (200):**
@@ -252,24 +261,24 @@ Get details of a specific room.
 
 ## Availability
 
-### GET /hotels/{hotelId}/rooms/{roomId}/availability
+### GET /rooms/{roomId}/availability
 
 Check if a room is available for a given period.
 
 **Query Parameters:**
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `startDate` | string (YYYY-MM-DD) | yes | Check-in date |
-| `endDate` | string (YYYY-MM-DD) | yes | Check-out date |
+| Parameter   | Type                | Required | Description    |
+|-------------|---------------------|----------|----------------|
+| `startDate` | string (YYYY-MM-DD) | yes      | Check-in date  |
+| `endDate`   | string (YYYY-MM-DD) | yes      | Check-out date |
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `200 OK` | Availability check result |
+| Status            | Description                                                           |
+|-------------------|-----------------------------------------------------------------------|
+| `200 OK`          | Availability check result                                             |
 | `400 Bad Request` | Invalid or missing dates, endDate before startDate, dates in the past |
-| `404 Not Found` | Hotel or room does not exist |
+| `404 Not Found`   | Hotel or room does not exist                                          |
 
 **Response Body (200):**
 
@@ -286,7 +295,7 @@ Check if a room is available for a given period.
 
 ## Bookings
 
-### POST /hotels/{hotelId}/rooms/{roomId}/bookings
+### POST /bookings
 
 Create a booking for a room.
 
@@ -302,15 +311,20 @@ Create a booking for a room.
   "breakfast": true
 }
 ```
+**Query Parameters:**
+
+| Parameter | Type | Required | Description                       |
+|-----------|------|----------|-----------------------------------|
+| `user_id` | int  | yes      | id of the current user of the app |
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `201 Created` | Booking created successfully |
+| Status            | Description                                                     |
+|-------------------|-----------------------------------------------------------------|
+| `201 Created`     | Booking created successfully                                    |
 | `400 Bad Request` | Validation error (missing fields, invalid email, invalid dates) |
-| `404 Not Found` | Hotel or room does not exist |
-| `409 Conflict` | Room is not available for the requested period |
+| `404 Not Found`   | Hotel or room does not exist                                    |
+| `409 Conflict`    | Room is not available for the requested period                  |
 
 **Response Body (201):**
 
@@ -342,16 +356,24 @@ Create a booking for a room.
 }
 ```
 
-### GET /hotels/{hotelId}/rooms/{roomId}/bookings
+### GET /bookings
 
-Get all bookings for a room.
+Get all bookings of a specified user.
+
+**Query Parameters:**
+
+| Parameter | Type | Required | Description                                |
+|-----------|------|----------|--------------------------------------------|
+| `user_id` | int  | yes      | id of the user that created the bookings   |
+
 
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `200 OK` | List of bookings |
-| `404 Not Found` | Hotel or room does not exist |
+| Status          | Description                            |
+|-----------------|----------------------------------------|
+| `200 OK`        | List of bookings                       |
+| `404 Not Found` | user has not created a booking before  |
+| `403 No Access` | current user is not the requested user |
 
 **Response Body (200):**
 
@@ -373,12 +395,19 @@ Get all bookings for a room.
 
 Get a specific booking by ID.
 
+**Query Parameters:**
+
+| Parameter | Type | Required | Description                                |
+|-----------|------|----------|--------------------------------------------|
+| `user_id` | int  | yes      | id of the user that created the booking    |
+
 **Responses:**
 
-| Status | Description |
-|--------|-------------|
-| `200 OK` | Booking found |
-| `404 Not Found` | Booking does not exist |
+| Status          | Description                                           |
+|-----------------|-------------------------------------------------------|
+| `200 OK`        | Booking found                                         |
+| `404 Not Found` | Booking does not exist                                |
+| `403 No Access` | current user is not the user of the reuqested booking |
 
 **Response Body (200):**
 

@@ -267,10 +267,11 @@ Check if a room is available for a given period.
 
 **Query Parameters:**
 
-| Parameter   | Type                | Required | Description    |
-|-------------|---------------------|----------|----------------|
-| `startDate` | string (YYYY-MM-DD) | yes      | Check-in date  |
-| `endDate`   | string (YYYY-MM-DD) | yes      | Check-out date |
+| Parameter   | Type                | Required | Description                   |
+|-------------|---------------------|----------|-------------------------------|
+| `startDate` | string (YYYY-MM-DD) | yes      | Check-in date                 |
+| `endDate`   | string (YYYY-MM-DD) | yes      | Check-out date                |
+| `hotel_id` | int  | none    | id of hotel from which rooms are to be queried |
 
 **Responses:**
 

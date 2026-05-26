@@ -1,8 +1,8 @@
 package com.company.controller;
 
-import com.company.entity.Hotel;
+import com.company.dto.HotelResponse;
+import com.company.dto.PageResponse;
 import com.company.service.HotelService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ public class HotelController {
     }
 
     @GetMapping
-    public Page<Hotel> getHotels(
+    public PageResponse<HotelResponse> getHotels(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "5") int size
     ) {
@@ -25,7 +25,7 @@ public class HotelController {
     }
 
     @GetMapping("/{id}")
-    public Hotel getHotelById(@PathVariable Integer id) {
+    public HotelResponse getHotelById(@PathVariable Integer id) {
         return hotelService.getHotelById(id);
     }
 }

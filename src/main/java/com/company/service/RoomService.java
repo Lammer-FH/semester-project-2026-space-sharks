@@ -1,18 +1,23 @@
 package com.company.service;
 
+import com.company.dto.AvailabilityResponse;
+import com.company.dto.PageResponse;
+import com.company.dto.RoomResponse;
 import com.company.entity.Room;
+import com.company.exception.BadRequestException;
+import com.company.exception.ResourceNotFoundException;
+import com.company.mapper.ResponseMapper;
+import com.company.repository.BookingRepository;
 import com.company.repository.RoomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.company.dto.AvailabilityResponse;
-import com.company.exception.BadRequestException;
-import com.company.exception.ResourceNotFoundException;
-import com.company.repository.BookingRepository;
 import java.time.LocalDate;
 
 @Service
+@Transactional(readOnly = true)
 public class RoomService {
 
     private final BookingRepository bookingRepository;
@@ -29,15 +34,14 @@ public class RoomService {
         this.hotelService = hotelService;
     }
 
-    public Page<Room> getRooms(Integer hotelId, int page, int size) {
-        hotelService.getHotelById(hotelId);
-        return roomRepository.findByHotel_Id(hotelId, PageRequest.of(page, size));
+    public PageResponse<RoomResponse> getRooms(Integer hotelId, int page, int size) {
+        hotelService.findHotelById(hotelId);
+        Page<Room> roomPage = roomRepository.findByHotel_Id(hotelId, PageRequest.of(page, size));
+        return ResponseMapper.toRoomPage(roomPage);
     }
 
-    public Room getRoomById(Integer roomId, Integer hotelId) {
-        hotelService.getHotelById(hotelId);
-        return roomRepository.findByIdAndHotel_Id(roomId, hotelId)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel or room not found"));
+    public RoomResponse getRoomById(Integer roomId, Integer hotelId) {
+        return ResponseMapper.toRoomResponse(findRoomById(roomId, hotelId));
     }
 
     public AvailabilityResponse checkAvailability(
@@ -47,15 +51,21 @@ public class RoomService {
             LocalDate endDate
     ) {
         validateDateRange(startDate, endDate);
-        getRoomById(roomId, hotelId);
+        findRoomById(roomId, hotelId);
 
         boolean hasOverlap = bookingRepository.existsByRoomIdAndStartDateLessThanAndEndDateGreaterThan(
                 roomId,
                 endDate,
                 startDate
         );
-    
+
         return new AvailabilityResponse(roomId, startDate, endDate, !hasOverlap);
+    }
+
+    private Room findRoomById(Integer roomId, Integer hotelId) {
+        hotelService.findHotelById(hotelId);
+        return roomRepository.findByIdAndHotel_Id(roomId, hotelId)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel or room not found"));
     }
 
     private void validateDateRange(LocalDate startDate, LocalDate endDate) {

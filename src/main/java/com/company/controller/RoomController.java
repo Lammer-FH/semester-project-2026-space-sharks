@@ -8,7 +8,7 @@ import java.util.Date;
 @RequestMapping("/rooms")
 public class RoomController {
 
-    @PostMapping
+    @GetMapping
     public String getAllRooms(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
                               @RequestParam(name = "size", required = false, defaultValue = "5") int size,
                               @RequestParam(name = "hotel_id") int hotelId)

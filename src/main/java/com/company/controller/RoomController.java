@@ -1,11 +1,11 @@
 package com.company.controller;
 
-import com.company.entity.Room;
+import com.company.dto.AvailabilityResponse;
+import com.company.dto.PageResponse;
+import com.company.dto.RoomResponse;
 import com.company.service.RoomService;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import com.company.dto.AvailabilityResponse;
 import java.time.LocalDate;
 
 @RestController
@@ -19,7 +19,7 @@ public class RoomController {
     }
 
     @GetMapping
-    public Page<Room> getAllRooms(
+    public PageResponse<RoomResponse> getAllRooms(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "5") int size,
             @RequestParam(name = "hotel_id") int hotelId
@@ -28,7 +28,7 @@ public class RoomController {
     }
 
     @GetMapping("/{roomId}")
-    public Room getRoomById(
+    public RoomResponse getRoomById(
             @PathVariable Integer roomId,
             @RequestParam(name = "hotel_id") int hotelId
     ) {

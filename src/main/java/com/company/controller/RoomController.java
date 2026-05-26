@@ -5,7 +5,8 @@ import com.company.service.RoomService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import com.company.dto.AvailabilityResponse;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/rooms")
@@ -35,12 +36,12 @@ public class RoomController {
     }
 
     @GetMapping("/{roomId}/availability")
-    public String getRoomAvailability(
-            @PathVariable Long roomId,
-            @RequestParam(name = "startDate") Date startDate,
-            @RequestParam(name = "endDate") Date endDate,
-            @RequestParam(name = "hotel_id") int hotelId
-    ) {
-        return "Availability is not implemented yet";
-    }
+public AvailabilityResponse getRoomAvailability(
+        @PathVariable Integer roomId,
+        @RequestParam(name = "startDate") LocalDate startDate,
+        @RequestParam(name = "endDate") LocalDate endDate,
+        @RequestParam(name = "hotel_id") int hotelId
+) {
+    return roomService.checkAvailability(roomId, startDate, endDate);
+}
 }

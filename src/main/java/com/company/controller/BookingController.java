@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.model.RequestBooking;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,27 +9,23 @@ import org.springframework.web.bind.annotation.*;
 public class BookingController {
 
     @PostMapping
-    public String createBooking(@RequestBody RequestBooking requestBooking,
-                                @RequestParam(name = "user_id") int userId)
-    {
-        System.out.println(requestBooking);
-        System.out.println(userId);
-        return "Create Booking is not Implemented";
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void createBooking(
+            @RequestBody RequestBooking requestBooking,
+            @RequestParam(name = "user_id") int userId
+    ) {
     }
 
     @GetMapping
-    public String getBookingOfUser(@RequestParam(name = "user_id") int userId) {
-        return "Get all Bookings of user is not implemented";
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void getBookingsOfUser(@RequestParam(name = "user_id") int userId) {
     }
 
     @GetMapping("/{id}")
-    public String getRoomById(@PathVariable Long id,
-                              @RequestParam(name = "user_id") int userId)
-    {
-
-        System.out.println(id);
-        System.out.println(userId);
-
-        return "Get Guest by ID is not implemented";
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void getBookingById(
+            @PathVariable Long id,
+            @RequestParam(name = "user_id") int userId
+    ) {
     }
 }

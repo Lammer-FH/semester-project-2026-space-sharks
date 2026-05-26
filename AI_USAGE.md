@@ -37,3 +37,13 @@ Purpose: Help review and finish hotels, rooms and availability APIs
 Result: implemented backend, AI supported with review, hotelId fix and backlog updates  
 Acceptance: Accepted
 Files: src/main/java/com/company/, BACKLOG.md
+
+---
+
+Date: 2026-05-26  
+Tool: Claude  
+Task: M2 Submission cleanup  
+Purpose: README, backlog and stub string responses  
+Result: Updated docs, cleaned config comments  
+Acceptance: Accepted  
+Files: README.md, BACKLOG.md, application.properties

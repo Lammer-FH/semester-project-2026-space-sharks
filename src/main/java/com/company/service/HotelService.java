@@ -1,6 +1,7 @@
 package com.company.service;
 
 import com.company.entity.Hotel;
+import com.company.exception.ResourceNotFoundException;
 import com.company.repository.HotelRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,6 @@ public class HotelService {
 
     public Hotel getHotelById(Integer id) {
         return hotelRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found"));
     }
 }

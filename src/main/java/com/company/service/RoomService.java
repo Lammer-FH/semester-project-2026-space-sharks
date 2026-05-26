@@ -31,7 +31,7 @@ public class RoomService {
 
     public Page<Room> getRooms(Integer hotelId, int page, int size) {
         hotelService.getHotelById(hotelId);
-        return roomRepository.findByHotelId(hotelId, PageRequest.of(page, size));
+        return roomRepository.findByHotel_Id(hotelId, PageRequest.of(page, size));
     }
 
     public Room getRoomById(Integer roomId, Integer hotelId) {

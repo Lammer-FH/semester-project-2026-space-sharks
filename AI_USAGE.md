@@ -27,3 +27,13 @@ Purpose: Add more details to api specification
 Result: Formatted and matching request/response bodies according to db design  
 Acceptance: Accepted
 Files: API_specification.md
+
+---
+
+Date: 2026-05-26  
+Tool: Claude  
+Task: Support with Spring Boot backend
+Purpose: Help review and finish hotels, rooms and availability APIs  
+Result: implemented backend, AI supported with review, hotelId fix and backlog updates  
+Acceptance: Accepted
+Files: src/main/java/com/company/, BACKLOG.md

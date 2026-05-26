@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
-    Page<Room> findByHotelId(Integer hotelId, Pageable pageable);
+    Page<Room> findByHotel_Id(Integer hotelId, Pageable pageable);
 
     Optional<Room> findByIdAndHotel_Id(Integer id, Integer hotelId);
 }

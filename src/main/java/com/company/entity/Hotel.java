@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -28,6 +28,6 @@ public class Hotel {
     private String imageUrl;
 
     @OneToMany(mappedBy = "hotel")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Room> rooms;
 }

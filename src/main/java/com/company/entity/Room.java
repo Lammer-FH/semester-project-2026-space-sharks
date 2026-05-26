@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "room")
@@ -42,4 +43,9 @@ private Hotel hotel;
         inverseJoinColumns = @JoinColumn(name = "feature_id")
 )
 private List<Feature> features;
+
+    @JsonProperty("hotelId")
+    public Integer getHotelId() {
+        return hotel != null ? hotel.getId() : null;
+    }
 }

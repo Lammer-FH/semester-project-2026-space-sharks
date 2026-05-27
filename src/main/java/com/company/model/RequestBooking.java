@@ -1,9 +1,9 @@
 package com.company.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.Builder;
 
 import java.util.Date;
 
@@ -11,6 +11,11 @@ import java.util.Date;
 @Getter
 @ToString
 @Builder
-public record RequestBooking(String firstName, String lastName, String email, Date startDate, Date endDate, boolean breakfast) {
-
+public class RequestBooking {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private Date startDate;
+    private Date endDate;
+    private boolean breakfast;
 }

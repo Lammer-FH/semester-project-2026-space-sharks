@@ -1,53 +1,47 @@
 package com.company.controller;
 
+import com.company.dto.AvailabilityResponse;
+import com.company.dto.PageResponse;
+import com.company.dto.RoomResponse;
+import com.company.service.RoomService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {
 
-    @PostMapping
-    public String getAllRooms(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
-                              @RequestParam(name = "size", required = false, defaultValue = "5") int size,
-                              @RequestParam(name = "hotel_id") int hotelId)
-    {
-        System.out.println(page);
-        System.out.println(size);
-        System.out.println(hotelId);
+    private final RoomService roomService;
 
-        return "Get Rooms is not Implemented";
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
+
+    @GetMapping
+    public PageResponse<RoomResponse> getAllRooms(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size,
+            @RequestParam(name = "hotel_id") int hotelId
+    ) {
+        return roomService.getRooms(hotelId, page, size);
     }
 
     @GetMapping("/{roomId}")
-    public String getRoomById(@PathVariable Long roomId,
-                              @RequestParam(name = "page", required = false, defaultValue = "0") int page,
-                              @RequestParam(name = "size", required = false, defaultValue = "5") int size,
-                              @RequestParam(name = "hotel_id") int hotelId)
-    {
-
-        System.out.println(page);
-        System.out.println(size);
-        System.out.println(hotelId);
-        System.out.println(roomId);
-
-        return "Get Guest by ID is not implemented";
+    public RoomResponse getRoomById(
+            @PathVariable Integer roomId,
+            @RequestParam(name = "hotel_id") int hotelId
+    ) {
+        return roomService.getRoomById(roomId, hotelId);
     }
 
     @GetMapping("/{roomId}/availability")
-    public String getRoomAvailability(@PathVariable Long roomId,
-                                      @RequestParam(name = "startDate") Date startDate,
-                                      @RequestParam(name = "endDate") Date endDate,
-                                      @RequestParam(name = "hotel_id") int hotelId)
-    {
-
-
-        System.out.println(startDate);
-        System.out.println(endDate);
-        System.out.println(hotelId);
-        System.out.println(roomId);
-
-        return "Get Guest by ID is not implemented";
+    public AvailabilityResponse getRoomAvailability(
+            @PathVariable Integer roomId,
+            @RequestParam(name = "startDate") LocalDate startDate,
+            @RequestParam(name = "endDate") LocalDate endDate,
+            @RequestParam(name = "hotel_id") int hotelId
+    ) {
+        return roomService.checkAvailability(roomId, hotelId, startDate, endDate);
     }
 }

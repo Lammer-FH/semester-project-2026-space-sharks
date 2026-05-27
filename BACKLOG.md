@@ -1,18 +1,20 @@
 # Backlog
 
-## Todo
+## Milestone 2
 
-### U1: Hotel Website
-As a guest, I want to be presented with the hotel in the form of a website in order to learn more about it.
+### Done – Backend
 
-### U2: Hotel Room Selection
-As a guest, I want to see an overview of hotel rooms and their details in order to choose a suitable room.
+- **U2** – `GET /rooms`, `GET /rooms/{id}` (pagination, features, 8 rooms seed data)
+- **U3** – `GET /rooms/{id}/availability` (date validation, overlap check, 400/404 errors)
+- Hotels API, JPA entities, `data.sql`, CORS, H2 + MySQL profile
 
-### U3: Check Availability
-As a guest, I want to check whether a specific room is available for my desired period.
+### Todo – Frontend
 
-### U4: Book a Hotel Room
-As a guest, I want to book a selected room.
+- **U1** – Hotel website (landing, imprint, about)
+- **U2** – Room list, pagination, feature icons
+- **U3** – Date picker, availability feedback
 
-### U5: Improve Booking Confirmation
-As a guest, I want to receive detailed confirmation after booking.
+## Final delivery
+
+- **U4** – Booking flow (backend: `POST /bookings`, guest APIs)
+- **U5** – Booking confirmation (backend: `GET /bookings/{id}`)

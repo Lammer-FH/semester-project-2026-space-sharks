@@ -5,16 +5,54 @@
         title="Unsere Zimmer"
         subtitle="Wählen Sie Ihr perfektes Zimmer"
       />
-      <p class="placeholder-text">
-        Zimmerübersicht wird in Sprint 2 implementiert.
-      </p>
+
+      <div v-if="roomStore.loading" class="status-message">
+        <ion-spinner name="crescent" />
+        <p>Zimmer werden geladen...</p>
+      </div>
+
+      <div v-else-if="roomStore.error" class="status-message">
+        <p class="error-text">{{ roomStore.error }}</p>
+        <AppButton color="primary" @click="roomStore.fetchRooms()">
+          Erneut versuchen
+        </AppButton>
+      </div>
+
+      <template v-else>
+        <div class="room-list">
+          <RoomCard
+            v-for="room in roomStore.rooms"
+            :key="room.id"
+            :room="room"
+          />
+        </div>
+
+        <PaginationButtons
+          v-if="roomStore.totalPages > 1"
+          :current-page="roomStore.currentPage"
+          :total-pages="roomStore.totalPages"
+          @page-change="roomStore.goToPage"
+        />
+      </template>
     </div>
   </PageLayout>
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { IonSpinner } from '@ionic/vue';
 import PageLayout from '@/components/templates/PageLayout.vue';
 import SectionTitle from '@/components/atoms/SectionTitle.vue';
+import AppButton from '@/components/atoms/AppButton.vue';
+import RoomCard from '@/components/molecules/RoomCard.vue';
+import PaginationButtons from '@/components/molecules/PaginationButtons.vue';
+import { useRoomStore } from '@/store/useRoomStore';
+
+const roomStore = useRoomStore();
+
+onMounted(() => {
+  roomStore.fetchRooms();
+});
 </script>
 
 <style scoped>
@@ -24,8 +62,19 @@ import SectionTitle from '@/components/atoms/SectionTitle.vue';
   margin: 0 auto;
 }
 
-.placeholder-text {
+.room-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.status-message {
   text-align: center;
-  color: var(--ion-color-medium);
+  padding: 48px 16px;
+}
+
+.error-text {
+  color: var(--ion-color-danger);
+  margin-bottom: 16px;
 }
 </style>

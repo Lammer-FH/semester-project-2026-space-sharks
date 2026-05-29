@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <AppHeader :title="title" />
+    <AppHeader :title="title" :back-href="backHref" />
     <ion-content :fullscreen="true">
       <slot />
     </ion-content>
@@ -13,5 +13,6 @@ import AppHeader from '@/components/organisms/AppHeader.vue';
 
 defineProps<{
   title: string;
+  backHref?: string;
 }>();
 </script>

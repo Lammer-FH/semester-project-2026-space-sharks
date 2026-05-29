@@ -1,79 +1,80 @@
 <template>
-  <PageLayout title="Über uns">
+  <PageLayout title="About Us">
     <div class="content-section">
       <SectionTitle
-          title="Über das Boutique Hotel Technikum"
-          subtitle="Tradition trifft Moderne"
+          title="About Boutique Hotel Technikum"
+          subtitle="Tradition Meets Modernity"
       />
 
       <p>
-        Das Boutique Hotel Technikum befindet sich im Herzen von Wien und bietet seit seiner
-        Gründung Reisenden aus aller Welt ein stilvolles und komfortables Zuhause auf Zeit.
-        Unser Haus vereint zeitgemäßes Design mit der Wärme traditioneller Wiener Gastfreundschaft.
+        Boutique Hotel Technikum is located in the heart of Vienna and has been offering
+        travellers from around the world a stylish and comfortable home away from home since
+        its founding. Our house combines contemporary design with the warmth of traditional
+        Viennese hospitality.
       </p>
 
       <p>
-        Jedes unserer Zimmer wurde individuell gestaltet und mit hochwertiger Ausstattung
-        versehen — von kostenlosem Highspeed-WLAN über Klimaanlage bis hin zu
-        erstklassigen Pflegeprodukten.
+        Each of our rooms has been individually designed and furnished with premium
+        amenities — from free high-speed Wi-Fi and air conditioning to first-class
+        care products.
       </p>
     </div>
 
     <div class="content-section">
-      <SectionTitle title="Unser Service"/>
+      <SectionTitle title="Our Services"/>
       <ion-list>
         <ion-item>
           <ion-icon :icon="restaurantOutline" slot="start" color="secondary"/>
           <ion-label>
-            <h3>Frühstücksbuffet</h3>
-            <p>Täglich frische regionale Produkte</p>
+            <h3>Breakfast Buffet</h3>
+            <p>Fresh regional products daily</p>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-icon :icon="wifiOutline" slot="start" color="secondary"/>
           <ion-label>
-            <h3>Kostenloses WLAN</h3>
-            <p>Highspeed-Internet im gesamten Hotel</p>
+            <h3>Free Wi-Fi</h3>
+            <p>High-speed internet throughout the hotel</p>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-icon :icon="mapOutline" slot="start" color="secondary"/>
           <ion-label>
-            <h3>Zentrale Lage</h3>
-            <p>Optimale Anbindung an öffentliche Verkehrsmittel</p>
+            <h3>Central Location</h3>
+            <p>Excellent connections to public transport</p>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-icon :icon="timeOutline" slot="start" color="secondary"/>
           <ion-label>
-            <h3>24h Rezeption</h3>
-            <p>Wir sind jederzeit für Sie da</p>
+            <h3>24h Reception</h3>
+            <p>We are here for you around the clock</p>
           </ion-label>
         </ion-item>
       </ion-list>
     </div>
 
     <div class="content-section">
-      <SectionTitle title="Kontakt"/>
+      <SectionTitle title="Contact"/>
       <ion-list>
         <ion-item>
           <ion-icon :icon="locationOutline" slot="start" color="primary"/>
           <ion-label>
-            <h3>Adresse</h3>
-            <p>Höchstädtplatz 6, 1200 Wien, Österreich</p>
+            <h3>Address</h3>
+            <p>Höchstädtplatz 6, 1200 Vienna, Austria</p>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-icon :icon="callOutline" slot="start" color="primary"/>
           <ion-label>
-            <h3>Telefon</h3>
+            <h3>Phone</h3>
             <p>+43 1 333 40 77-0</p>
           </ion-label>
         </ion-item>
         <ion-item>
           <ion-icon :icon="mailOutline" slot="start" color="primary"/>
           <ion-label>
-            <h3>E-Mail</h3>
+            <h3>Email</h3>
             <p>info@hotel-technikum.at</p>
           </ion-label>
         </ion-item>

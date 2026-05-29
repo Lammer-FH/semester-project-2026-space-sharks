@@ -6,7 +6,7 @@
       :disabled="currentPage === 0"
       @click="$emit('pageChange', currentPage - 1)"
     >
-      Zurück
+      Previous
     </ion-button>
 
     <ion-button
@@ -25,7 +25,7 @@
       :disabled="currentPage >= totalPages - 1"
       @click="$emit('pageChange', currentPage + 1)"
     >
-      Weiter
+      Next
     </ion-button>
   </div>
 </template>

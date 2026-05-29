@@ -1,46 +1,44 @@
 <template>
-  <PageLayout title="Impressum">
+  <PageLayout title="Legal Notice">
     <div class="content-section">
-      <SectionTitle title="Impressum" />
+      <SectionTitle title="Legal Notice" />
 
-      <h3>Betreiber</h3>
+      <h3>Operator</h3>
       <p>
         Boutique Hotel Technikum GmbH<br />
         Höchstädtplatz 6<br />
-        1200 Wien, Österreich
+        1200 Vienna, Austria
       </p>
 
-      <h3>Kontakt</h3>
+      <h3>Contact</h3>
       <p>
-        Telefon: +43 1 333 40 77-0<br />
-        E-Mail: info@hotel-technikum.at
+        Phone: +43 1 333 40 77-0<br />
+        Email: info@hotel-technikum.at
       </p>
 
-      <h3>Unternehmensgegenstand</h3>
-      <p>Hotellerie und Beherbergung</p>
+      <h3>Business Purpose</h3>
+      <p>Hotel and accommodation services</p>
 
-      <h3>UID-Nummer</h3>
+      <h3>VAT Number</h3>
       <p>ATU12345678</p>
 
-      <h3>Firmenbuchnummer</h3>
-      <p>FN 123456a, Handelsgericht Wien</p>
+      <h3>Company Register Number</h3>
+      <p>FN 123456a, Commercial Court Vienna</p>
 
-      <h3>Aufsichtsbehörde</h3>
-      <p>Magistrat der Stadt Wien</p>
+      <h3>Supervisory Authority</h3>
+      <p>Municipal Authority of the City of Vienna</p>
 
-      <h3>Haftungsausschluss</h3>
+      <h3>Disclaimer</h3>
       <p>
-        Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte
-        externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber
-        verantwortlich.
+        Despite careful content review, we assume no liability for the content of external links.
+        The operators of the linked pages are solely responsible for their content.
       </p>
 
-      <h3>Urheberrecht</h3>
+      <h3>Copyright</h3>
       <p>
-        Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
-        dem österreichischen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede
-        Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen
-        Zustimmung des Autors bzw. Erstellers.
+        The content and works on these pages created by the site operator are subject to Austrian
+        copyright law. Reproduction, editing, distribution, and any form of use beyond the limits
+        of copyright law require the written consent of the respective author or creator.
       </p>
     </div>
   </PageLayout>

@@ -35,8 +35,8 @@ import { homeOutline, bedOutline, informationCircleOutline, documentTextOutline 
 
 const menuItems = [
   { path: '/home', label: 'Home', icon: homeOutline },
-  { path: '/rooms', label: 'Zimmer', icon: bedOutline },
-  { path: '/about', label: 'Über uns', icon: informationCircleOutline },
-  { path: '/imprint', label: 'Impressum', icon: documentTextOutline },
+  { path: '/rooms', label: 'Rooms', icon: bedOutline },
+  { path: '/about', label: 'About Us', icon: informationCircleOutline },
+  { path: '/imprint', label: 'Legal Notice', icon: documentTextOutline },
 ];
 </script>

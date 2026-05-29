@@ -35,7 +35,7 @@ export const useRoomStore = defineStore('rooms', {
         this.totalPages = response.data.totalPages;
         this.totalElements = response.data.totalElements;
       } catch (err) {
-        this.error = 'Zimmer konnten nicht geladen werden.';
+        this.error = 'Could not load rooms.';
       } finally {
         this.loading = false;
       }

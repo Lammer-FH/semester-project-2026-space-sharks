@@ -3,45 +3,45 @@
     <div class="hero">
       <div class="hero-overlay">
         <h1>Boutique Hotel Technikum</h1>
-        <p class="hero-subtitle">Ihr exklusives Zuhause im Herzen von Wien</p>
+        <p class="hero-subtitle">Your exclusive home in the heart of Vienna</p>
         <AppButton color="secondary" router-link="/rooms">
-          Zimmer entdecken
+          Discover Rooms
         </AppButton>
       </div>
     </div>
 
     <div class="content-section">
       <SectionTitle
-        title="Willkommen"
-        subtitle="Erleben Sie Wiener Gastfreundschaft neu"
+        title="Welcome"
+        subtitle="Experience Viennese hospitality redefined"
       />
       <p class="intro-text">
-        Das Boutique Hotel Technikum verbindet modernen Komfort mit dem Charme der Wiener
-        Tradition. Zentral gelegen, bieten wir Ihnen den perfekten Ausgangspunkt, um die
-        Sehenswürdigkeiten, Kultur und Kulinarik der Stadt zu entdecken.
+        Boutique Hotel Technikum combines modern comfort with the charm of Viennese tradition.
+        Centrally located, we offer you the perfect starting point to discover the city's
+        sights, culture, and culinary delights.
       </p>
     </div>
 
     <div class="content-section">
-      <SectionTitle title="Unsere Highlights" />
+      <SectionTitle title="Our Highlights" />
       <ion-grid>
         <ion-row>
           <ion-col size="12" size-md="4">
-            <InfoCard title="Zentrale Lage">
-              Nur wenige Gehminuten von der Wiener Innenstadt, öffentlichen Verkehrsmitteln
-              und den bekanntesten Sehenswürdigkeiten entfernt.
+            <InfoCard title="Central Location">
+              Just a short walk from Vienna's city centre, public transport,
+              and the most famous landmarks.
             </InfoCard>
           </ion-col>
           <ion-col size="12" size-md="4">
-            <InfoCard title="Moderner Komfort">
-              Alle Zimmer sind mit hochwertigem Interieur, kostenlosem WLAN und
-              Klimaanlage ausgestattet.
+            <InfoCard title="Modern Comfort">
+              All rooms are equipped with premium interiors, free Wi-Fi,
+              and air conditioning.
             </InfoCard>
           </ion-col>
           <ion-col size="12" size-md="4">
-            <InfoCard title="Frühstück">
-              Starten Sie Ihren Tag mit unserem reichhaltigen Frühstücksbuffet —
-              regional und frisch zubereitet.
+            <InfoCard title="Breakfast">
+              Start your day with our rich breakfast buffet —
+              regional and freshly prepared.
             </InfoCard>
           </ion-col>
         </ion-row>
@@ -50,11 +50,11 @@
 
     <div class="content-section cta-section">
       <SectionTitle
-        title="Bereit für Ihren Aufenthalt?"
-        subtitle="Finden Sie das perfekte Zimmer für Ihren Wien-Besuch"
+        title="Ready for your stay?"
+        subtitle="Find the perfect room for your visit to Vienna"
       />
       <AppButton expand="block" color="primary" router-link="/rooms">
-        Jetzt Zimmer ansehen
+        Browse Rooms
       </AppButton>
     </div>
   </PageLayout>

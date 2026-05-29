@@ -1,20 +1,20 @@
 <template>
-  <PageLayout title="Zimmer">
+  <PageLayout title="Rooms">
     <div class="content-section">
       <SectionTitle
-        title="Unsere Zimmer"
-        subtitle="Wählen Sie Ihr perfektes Zimmer"
+        title="Our Rooms"
+        subtitle="Choose your perfect room"
       />
 
       <div v-if="roomStore.loading" class="status-message">
         <ion-spinner name="crescent" />
-        <p>Zimmer werden geladen...</p>
+        <p>Loading rooms...</p>
       </div>
 
       <div v-else-if="roomStore.error" class="status-message">
         <p class="error-text">{{ roomStore.error }}</p>
         <AppButton color="primary" @click="roomStore.fetchRooms()">
-          Erneut versuchen
+          Try Again
         </AppButton>
       </div>
 

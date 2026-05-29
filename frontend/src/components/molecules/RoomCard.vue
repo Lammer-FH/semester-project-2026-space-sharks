@@ -4,7 +4,7 @@
     <ion-card-header>
       <ion-card-title>{{ room.name }}</ion-card-title>
       <ion-card-subtitle>
-        {{ room.pricePerNight }} € / Nacht · max. {{ room.maxOccupants }} Personen
+        {{ room.pricePerNight }} € / night · max. {{ room.maxOccupants }} guests
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
@@ -17,6 +17,14 @@
           :name="feature.name"
         />
       </div>
+      <AppButton
+        expand="block"
+        color="primary"
+        :router-link="`/rooms/${room.id}?hotel_id=${room.hotelId}`"
+        class="check-btn"
+      >
+        View Details
+      </AppButton>
     </ion-card-content>
   </ion-card>
 </template>
@@ -26,6 +34,7 @@ import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent }
 import type { Room } from '@/types';
 import RoomImage from '@/components/atoms/RoomImage.vue';
 import FeatureIcon from '@/components/atoms/FeatureIcon.vue';
+import AppButton from '@/components/atoms/AppButton.vue';
 
 defineProps<{
   room: Room;
@@ -38,5 +47,9 @@ defineProps<{
   flex-wrap: wrap;
   gap: 4px;
   margin-top: 8px;
+}
+
+.check-btn {
+  margin-top: 12px;
 }
 </style>

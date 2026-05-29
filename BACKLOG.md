@@ -8,11 +8,16 @@
 - **U3** – `GET /rooms/{id}/availability` (date validation, overlap check, 400/404 errors)
 - Hotels API, JPA entities, `data.sql`, CORS, H2 + MySQL profile
 
-### Todo – Frontend
+### Done – Frontend
 
-- **U1** – Hotel website (landing, imprint, about)
-- **U2** – Room list, pagination, feature icons
-- **U3** – Date picker, availability feedback
+- **U1** – Hotel website (landing, imprint, about), atomic design structure, Pinia + Axios setup, theming
+- **U2** – Room list with pagination, RoomCard, FeatureIcon, PaginationButtons, useRoomStore
+- **U3** – Room detail page, date picker, availability check, useBookingStore, back navigation
+
+### Done – Infrastructure
+
+- Docker + docker-compose setup (Spring Boot + MySQL)
+- Static room/hotel images served from backend, Vite proxy for `/images`
 
 ## Final delivery
 

@@ -66,6 +66,28 @@ mvn spring-boot:run "-Dspring-boot.run.profiles=mysql"
 
 The database `hotel_booking` is created automatically if it does not exist. Same seed data as H2.
 
+### Run with Docker (recommended for demo)
+
+Starts both MySQL and the backend in containers — no local Java or MySQL needed.
+
+```bash
+docker compose up --build
+```
+
+Backend available at `http://localhost:8081/api/v1`. MySQL data is persisted in a Docker volume (`mysql-data`).
+
+To stop and remove containers:
+
+```bash
+docker compose down
+```
+
+To also remove the database volume:
+
+```bash
+docker compose down -v
+```
+
 ### Implemented endpoints (M2)
 
 - `GET /hotels`, `GET /hotels/{id}`

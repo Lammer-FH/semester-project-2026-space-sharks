@@ -1,0 +1,82 @@
+# Boutique Hotel Technikum – Booking App
+
+Spring Boot backend and Ionic/Vue frontend for the hotel booking app (AWT 2026).
+
+## Milestone 2 – Backend
+
+**Done:** rooms (U2), availability (U3), hotels, JPA schema, seed data, CORS.  
+**Final delivery:** guest and booking endpoints (stubs return `501 Not Implemented`).
+
+API spec: [API_specification.md](API_specification.md) · DB design: [DB_Design.md](DB_Design.md)
+
+## Backend
+
+Base URL: `http://localhost:8081/api/v1`
+
+### Database – which one to use?
+
+The project supports two databases. **Only one is active at a time**, depending on how you start the app.
+
+| | H2 (default) | MySQL |
+|---|--------------|-------|
+| **When to use** | Local development, quick testing | When MySQL is required (project spec, demo) |
+| **Config file** | `application.properties` | `application-mysql.properties` |
+| **Data persistence** | In-memory – lost on restart | Stored in MySQL server |
+| **How to start** | `mvn spring-boot:run` | `mvn spring-boot:run "-Dspring-boot.run.profiles=mysql"` |
+
+On every startup (both databases): Hibernate creates the tables from the JPA entities, then `data.sql` inserts seed data (hotel, 8 rooms, sample bookings).
+
+### Run with H2 (default)
+
+`mvn spring-boot:run` **without** a profile always uses H2.
+
+```bash
+mvn spring-boot:run
+```
+
+Check the startup log for: `jdbc:h2:mem:hotelbookingdb`
+
+Optional – browse data in the H2 console:
+
+- URL: `http://localhost:8081/h2-console`
+- JDBC URL: `jdbc:h2:mem:hotelbookingdb`
+- User: `sa`
+- Password: *(empty)*
+
+### Run with MySQL
+
+`mvn spring-boot:run` alone does **not** use MySQL. You must activate the **`mysql`** profile.
+
+1. Start MySQL Server (port 3306).
+2. Set the root password in your shell *(do not commit it to Git)*:
+
+```powershell
+$env:MYSQL_PASSWORD="your-root-password"
+```
+
+If root has no password, leave `MYSQL_PASSWORD` unset.
+
+3. Stop any app already running on port 8081, then start:
+
+```powershell
+mvn spring-boot:run "-Dspring-boot.run.profiles=mysql"
+```
+
+4. Confirm in the startup log: `jdbc:mysql://localhost:3306/hotel_booking` *(not `jdbc:h2`)*.
+
+The database `hotel_booking` is created automatically if it does not exist. Same seed data as H2.
+
+### Implemented endpoints (M2)
+
+- `GET /hotels`, `GET /hotels/{id}`
+- `GET /rooms?hotel_id=&page=&size=`
+- `GET /rooms/{roomId}?hotel_id=`
+- `GET /rooms/{roomId}/availability?startDate=&endDate=&hotel_id=`
+
+## Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```

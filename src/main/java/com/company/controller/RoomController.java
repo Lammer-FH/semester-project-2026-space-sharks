@@ -41,6 +41,6 @@ public class RoomController {
             @RequestParam(name = "startDate") LocalDate startDate,
             @RequestParam(name = "endDate") LocalDate endDate
     ) {
-        return roomService.checkAvailability(roomId, startDate, endDate);
+        return roomService.getRoomAvailability(roomId, startDate, endDate);
     }
 }

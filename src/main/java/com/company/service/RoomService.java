@@ -11,6 +11,8 @@ import com.company.repository.BookingRepository;
 import com.company.repository.RoomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +39,7 @@ public class RoomService {
     public PageResponse<RoomResponse> getRooms(Integer hotelId, int page, int size) {
         hotelService.findHotelById(hotelId);
         Page<Room> roomPage = roomRepository.findByHotel_Id(hotelId, PageRequest.of(page, size));
+
         return ResponseMapper.toRoomPage(roomPage);
     }
 
@@ -44,11 +47,11 @@ public class RoomService {
         return ResponseMapper.toRoomResponse(findRoomById(id));
     }
 
-    public AvailabilityResponse checkAvailability(Integer roomId, LocalDate startDate, LocalDate endDate) {
+    public AvailabilityResponse getRoomAvailability(Integer roomId, LocalDate startDate, LocalDate endDate) {
         validateDateRange(startDate, endDate);
         findRoomById(roomId);
 
-        boolean hasOverlap = bookingRepository.existsByRoomIdAndStartDateLessThanAndEndDateGreaterThan(
+        boolean hasOverlap = bookingRepository.existsByRoomIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                 roomId,
                 endDate,
                 startDate

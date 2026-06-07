@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
-    boolean existsByRoomIdAndStartDateLessThanAndEndDateGreaterThan(
+boolean existsByRoomIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
             Integer roomId,
             LocalDate endDate,
             LocalDate startDate

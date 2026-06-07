@@ -1,7 +1,6 @@
 package com.company.service;
 
 import com.company.dto.BookingResponse;
-import com.company.dto.GuestResponse;
 import com.company.entity.Booking;
 import com.company.entity.Guest;
 import com.company.entity.Room;
@@ -42,10 +41,22 @@ public class BookingService {
         Room room = roomRepository.findById(roomId)
             .orElseThrow(() -> new ResourceNotFoundException("Room not found"));
 
+
+        boolean isRoomOccupied = bookingRepository.existsByRoomIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+                roomId,
+                endDate,
+                startDate
+        );
+
+        if (isRoomOccupied) {
+            // 409 error if room not available.
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(null);
+        }
+
         Optional<Guest> guest = guestService.findExistingGuest(firstName, lastName, email);
 
         Booking booking = new Booking();
-
         if (guest.isPresent()) {
             booking.setGuest(guest.get());
         }
@@ -82,6 +93,7 @@ public class BookingService {
         Booking booking = findBookingById(bookingId);
 
         if (booking.getGuest().getId() != guestId) {
+            // 403 error.
             throw new ResourceAccessException("You have no rights to see this page");
         }
         

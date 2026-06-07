@@ -31,6 +31,10 @@ public class GuestService {
         guest.setLastName(lastName);
         guest.setEmail(email);
 
+        checkIfEmailDuplicate(email);
+        // @TODO email string validation?
+        // @TODO date range validation.
+
         Guest createdGuest = guestRepository.save(guest);
 
         GuestResponse response = ResponseMapper.toGuestResponse(createdGuest);
@@ -68,7 +72,6 @@ public class GuestService {
         );
     }
 
-    /*
     private void checkIfEmailDuplicate(String email) {
         if (guestRepository.existsByEmail(email)) {
             throw new ResponseStatusException(
@@ -77,6 +80,5 @@ public class GuestService {
             );
         }
     }
-    */
 
 }

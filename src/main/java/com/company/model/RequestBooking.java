@@ -5,17 +5,18 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.Builder;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Getter
 @ToString
 @Builder
 public class RequestBooking {
+    private Integer roomId;
     private String firstName;
     private String lastName;
     private String email;
-    private Date startDate;
-    private Date endDate;
-    private boolean breakfast;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Boolean breakfast;
 }

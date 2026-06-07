@@ -32,16 +32,15 @@ public class RoomController {
             @PathVariable Integer roomId,
             @RequestParam(name = "hotel_id") int hotelId
     ) {
-        return roomService.getRoomById(roomId, hotelId);
+        return roomService.getRoomById(roomId);
     }
 
     @GetMapping("/{roomId}/availability")
     public AvailabilityResponse getRoomAvailability(
             @PathVariable Integer roomId,
             @RequestParam(name = "startDate") LocalDate startDate,
-            @RequestParam(name = "endDate") LocalDate endDate,
-            @RequestParam(name = "hotel_id") int hotelId
+            @RequestParam(name = "endDate") LocalDate endDate
     ) {
-        return roomService.checkAvailability(roomId, hotelId, startDate, endDate);
+        return roomService.checkAvailability(roomId, startDate, endDate);
     }
 }

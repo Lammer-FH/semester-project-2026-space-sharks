@@ -40,18 +40,13 @@ public class RoomService {
         return ResponseMapper.toRoomPage(roomPage);
     }
 
-    public RoomResponse getRoomById(Integer roomId, Integer hotelId) {
-        return ResponseMapper.toRoomResponse(findRoomById(roomId, hotelId));
+    public RoomResponse getRoomById(Integer id) {
+        return ResponseMapper.toRoomResponse(findRoomById(id));
     }
 
-    public AvailabilityResponse checkAvailability(
-            Integer roomId,
-            Integer hotelId,
-            LocalDate startDate,
-            LocalDate endDate
-    ) {
+    public AvailabilityResponse checkAvailability(Integer roomId, LocalDate startDate, LocalDate endDate) {
         validateDateRange(startDate, endDate);
-        findRoomById(roomId, hotelId);
+        findRoomById(roomId);
 
         boolean hasOverlap = bookingRepository.existsByRoomIdAndStartDateLessThanAndEndDateGreaterThan(
                 roomId,
@@ -62,9 +57,8 @@ public class RoomService {
         return new AvailabilityResponse(roomId, startDate, endDate, !hasOverlap);
     }
 
-    private Room findRoomById(Integer roomId, Integer hotelId) {
-        hotelService.findHotelById(hotelId);
-        return roomRepository.findByIdAndHotel_Id(roomId, hotelId)
+    public Room findRoomById(Integer roomId) {
+        return roomRepository.findById(roomId)
                 .orElseThrow(() -> new ResourceNotFoundException("Hotel or room not found"));
     }
 

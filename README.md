@@ -13,6 +13,8 @@ API spec: [API_specification.md](API_specification.md) · DB design: [DB_Design.
 
 Base URL: `http://localhost:8081/api/v1`
 
+Swagger (API Endpoint Testing): `http://localhost:8081/api/v1/swagger-ui/index.html`
+
 ### Database – which one to use?
 
 The project supports two databases. **Only one is active at a time**, depending on how you start the app.
@@ -87,13 +89,6 @@ To also remove the database volume:
 ```bash
 docker compose down -v
 ```
-
-### Implemented endpoints (M2)
-
-- `GET /hotels`, `GET /hotels/{id}`
-- `GET /rooms?hotel_id=&page=&size=`
-- `GET /rooms/{roomId}?hotel_id=`
-- `GET /rooms/{roomId}/availability?startDate=&endDate=&hotel_id=`
 
 ## Frontend
 

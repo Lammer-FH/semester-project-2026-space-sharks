@@ -1,3 +1,4 @@
 - Julian Weghaupt - julian.weghaupt@gmail.com
 - Jons Bori - jonsbori7@gmail.com
 - Emil Auer - emilauer18@gmail.com
+- Nikolay Grachev - nik96gr@gmail.com

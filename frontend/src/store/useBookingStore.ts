@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import api from '@/services/api';
-import type { Room, AvailabilityResponse } from '@/types';
+import type { Room, Booking, AvailabilityResponse } from '@/types';
+
+export type BookingStep = 'availability' | 'form' | 'review' | 'confirmed';
 
 export const useBookingStore = defineStore('booking', {
   state: () => ({
@@ -10,6 +12,15 @@ export const useBookingStore = defineStore('booking', {
     availability: null as AvailabilityResponse | null,
     loading: false,
     error: null as string | null,
+
+    // Booking form
+    step: 'availability' as BookingStep,
+    firstName: '',
+    lastName: '',
+    email: '',
+    confirmEmail: '',
+    breakfast: false,
+    createdBooking: null as Booking | null,
   }),
 
   getters: {
@@ -38,6 +49,11 @@ export const useBookingStore = defineStore('booking', {
     setRoom(room: Room) {
       this.selectedRoom = room;
       this.availability = null;
+      this.error = null;
+    },
+
+    setStep(step: BookingStep) {
+      this.step = step;
       this.error = null;
     },
 
@@ -73,6 +89,39 @@ export const useBookingStore = defineStore('booking', {
       }
     },
 
+    async submitBooking() {
+      if (!this.selectedRoom) return;
+
+      this.loading = true;
+      this.error = null;
+
+      try {
+        const response = await api.post<Booking>('/bookings', {
+          roomId: this.selectedRoom.id,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          startDate: this.startDate,
+          endDate: this.endDate,
+          breakfast: this.breakfast,
+        }, {
+          params: { user_id: 1 },
+        });
+        this.createdBooking = response.data;
+        this.step = 'confirmed';
+      } catch (err: any) {
+        if (err.response?.status === 409) {
+          this.error = 'This room is no longer available for the selected dates.';
+        } else if (err.response?.status === 400) {
+          this.error = 'Please check your input.';
+        } else {
+          this.error = 'Could not complete booking.';
+        }
+      } finally {
+        this.loading = false;
+      }
+    },
+
     reset() {
       this.selectedRoom = null;
       this.startDate = '';
@@ -80,6 +129,13 @@ export const useBookingStore = defineStore('booking', {
       this.availability = null;
       this.loading = false;
       this.error = null;
+      this.step = 'availability';
+      this.firstName = '';
+      this.lastName = '';
+      this.email = '';
+      this.confirmEmail = '';
+      this.breakfast = false;
+      this.createdBooking = null;
     },
   },
 });

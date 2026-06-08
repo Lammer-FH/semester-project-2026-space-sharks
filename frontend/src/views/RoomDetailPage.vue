@@ -56,8 +56,8 @@
           </div>
         </div>
 
-        <!-- Availability check -->
-        <div class="availability-section">
+        <!-- Step: Availability check -->
+        <div v-if="bookingStore.step === 'availability'" class="booking-section">
           <SectionTitle
             title="Check Availability"
             subtitle="Select your travel dates"
@@ -89,9 +89,46 @@
             :available="bookingStore.isAvailable!"
             :night-count="bookingStore.nightCount"
             :total-price="bookingStore.totalPrice"
+            @book="bookingStore.setStep('form')"
           />
         </div>
 
+        <!-- Step: Booking form -->
+        <div v-else-if="bookingStore.step === 'form'" class="booking-section">
+          <BookingForm
+            :first-name="bookingStore.firstName"
+            :last-name="bookingStore.lastName"
+            :email="bookingStore.email"
+            :confirm-email="bookingStore.confirmEmail"
+            :breakfast="bookingStore.breakfast"
+            @update:first-name="bookingStore.firstName = $event"
+            @update:last-name="bookingStore.lastName = $event"
+            @update:email="bookingStore.email = $event"
+            @update:confirm-email="bookingStore.confirmEmail = $event"
+            @update:breakfast="bookingStore.breakfast = $event"
+            @continue="bookingStore.setStep('review')"
+            @back="bookingStore.setStep('availability')"
+          />
+        </div>
+
+        <!-- Step: Review -->
+        <div v-else-if="bookingStore.step === 'review'" class="booking-section">
+          <BookingReview
+            :room-name="room.name"
+            :start-date="bookingStore.startDate"
+            :end-date="bookingStore.endDate"
+            :night-count="bookingStore.nightCount"
+            :total-price="bookingStore.totalPrice"
+            :first-name="bookingStore.firstName"
+            :last-name="bookingStore.lastName"
+            :email="bookingStore.email"
+            :breakfast="bookingStore.breakfast"
+            :loading="bookingStore.loading"
+            :error="bookingStore.error"
+            @confirm="onConfirm"
+            @back="bookingStore.setStep('form')"
+          />
+        </div>
       </template>
     </div>
   </PageLayout>
@@ -99,7 +136,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { IonIcon, IonSpinner } from '@ionic/vue';
 import { pricetagOutline, peopleOutline } from 'ionicons/icons';
 import PageLayout from '@/components/templates/PageLayout.vue';
@@ -108,11 +145,14 @@ import AppButton from '@/components/atoms/AppButton.vue';
 import FeatureIcon from '@/components/atoms/FeatureIcon.vue';
 import DateRangePicker from '@/components/molecules/DateRangePicker.vue';
 import AvailabilityResult from '@/components/molecules/AvailabilityResult.vue';
+import BookingForm from '@/components/molecules/BookingForm.vue';
+import BookingReview from '@/components/molecules/BookingReview.vue';
 import { useBookingStore } from '@/store/useBookingStore';
 import api from '@/services/api';
 import type { Room } from '@/types';
 
 const route = useRoute();
+const router = useRouter();
 const bookingStore = useBookingStore();
 const loading = ref(true);
 const error = ref<string | null>(null);
@@ -122,9 +162,18 @@ const canCheck = computed(
   () => bookingStore.startDate && bookingStore.endDate && !bookingStore.loading
 );
 
+async function onConfirm() {
+  await bookingStore.submitBooking();
+  if (bookingStore.step === 'confirmed') {
+    router.push('/booking/confirmation');
+  }
+}
+
 onMounted(async () => {
   const roomId = Number(route.params.id);
   const hotelId = Number(route.query.hotel_id ?? 1);
+
+  bookingStore.step = 'availability';
 
   try {
     const response = await api.get<Room>(`/rooms/${roomId}`, {
@@ -237,7 +286,7 @@ onMounted(async () => {
   gap: 6px;
 }
 
-.availability-section {
+.booking-section {
   margin-top: 8px;
   padding: 0 16px;
   display: flex;

@@ -54,12 +54,11 @@ public class BookingService {
                 .body(null);
         }
 
-        Optional<Guest> guest = guestService.findExistingGuest(firstName, lastName, email);
+        Guest guest = guestService.findExistingGuest(firstName, lastName, email)
+                .orElseGet(() -> guestService.createAndReturnGuest(firstName, lastName, email));
 
         Booking booking = new Booking();
-        if (guest.isPresent()) {
-            booking.setGuest(guest.get());
-        }
+        booking.setGuest(guest);
         
         booking.setStartDate(startDate);
         booking.setEndDate(endDate);

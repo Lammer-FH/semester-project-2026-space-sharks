@@ -64,6 +64,14 @@ public class GuestService {
                 .orElseThrow(() -> new ResourceNotFoundException("Guest not found"));
     }
 
+    public Guest createAndReturnGuest(String firstName, String lastName, String email) {
+        Guest guest = new Guest();
+        guest.setFirstName(firstName);
+        guest.setLastName(lastName);
+        guest.setEmail(email);
+        return guestRepository.save(guest);
+    }
+
     public Optional<Guest> findExistingGuest(String firstName, String lastName, String email) {
         return guestRepository.findByFirstNameAndLastNameAndEmail(
             firstName,

@@ -230,7 +230,6 @@ Get details of a specific room.
 |------------|------|---------|---------------------------|----------|
 | `page`     | int  | 0       | Page number (zero-based)  | no       |
 | `size`     | int  | 5       | Number of rooms per page  | no       |
-| `hotel_id` | int  | -       | hotel the room belongs to | yes      |
 
 **Responses:**
 
@@ -271,7 +270,6 @@ Check if a room is available for a given period.
 |-------------|---------------------|----------|-------------------------------|
 | `startDate` | string (YYYY-MM-DD) | yes      | Check-in date                 |
 | `endDate`   | string (YYYY-MM-DD) | yes      | Check-out date                |
-| `hotel_id` | int  | none    | id of hotel from which rooms are to be queried |
 
 **Responses:**
 

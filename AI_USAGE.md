@@ -88,6 +88,15 @@ This document tracks all meaningful uses of AI tools throughout the project, as 
 | **Acceptance** | Accepted with minor adjustments |
 | **Files** | `frontend/src/views/HomePage.vue`, `AboutPage.vue`, `ImprintPage.vue`, `RoomDetailPage.vue`, `frontend/src/components/molecules/RoomCard.vue`, `AvailabilityResult.vue` |
 
+| | |
+|---|---|
+| **Date** | 2026-06-05 |
+| **Tool** | DeepSeek |
+| **Purpose** | Create a SVG logo for "Boutique Hotel Technikum" student project, house+icon on left, stacked text "BOUTIQUE HOTEL TECHNIKUM" on right. Vector, minimalistic, transparent background, white color.  |
+| **Result** | Created a SVG-based logo currently used as a Vue component for site logotype.|
+| **Acceptance** | Accepted with minor adjustments |
+| **Files** | `frontend/src/components/atoms/SiteLogo.vue` |
+
 ### US-3 Implementation Support (Room Detail & Availability)
 | | |
 |---|---|

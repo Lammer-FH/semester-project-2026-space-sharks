@@ -4,6 +4,7 @@ import HomePage from '@/views/HomePage.vue';
 import RoomsPage from '@/views/RoomsPage.vue';
 import RoomDetailPage from '@/views/RoomDetailPage.vue';
 import AboutPage from '@/views/AboutPage.vue';
+import BookingConfirmationPage from '@/views/BookingConfirmationPage.vue';
 import ImprintPage from '@/views/ImprintPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -25,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/rooms/:id',
     name: 'RoomDetail',
     component: RoomDetailPage,
+  },
+  {
+    path: '/booking/confirmation',
+    name: 'BookingConfirmation',
+    component: BookingConfirmationPage,
   },
   {
     path: '/about',

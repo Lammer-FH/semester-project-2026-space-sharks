@@ -7,5 +7,5 @@
 
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import AppMenu from '@/components/organisms/AppMenu.vue';
+import AppMenu from '@/components/organisms/MenuMobile.vue';
 </script>

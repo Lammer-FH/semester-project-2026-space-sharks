@@ -4,9 +4,13 @@ import com.company.dto.FeatureResponse;
 import com.company.dto.HotelResponse;
 import com.company.dto.PageResponse;
 import com.company.dto.RoomResponse;
+import com.company.dto.BookingResponse;
+import com.company.dto.GuestResponse;
 import com.company.entity.Feature;
 import com.company.entity.Hotel;
 import com.company.entity.Room;
+import com.company.entity.Booking;
+import com.company.entity.Guest;
 import org.springframework.data.domain.Page;
 
 import java.util.Collections;
@@ -44,6 +48,28 @@ public final class ResponseMapper {
         return new FeatureResponse(feature.getId(), feature.getName(), feature.getIcon());
     }
 
+    public static BookingResponse toBookingResponse(Booking booking) {
+        return new BookingResponse(
+            booking.getId(),
+            toRoomResponse(booking.getRoom()),
+            booking.getGuest() != null ? toGuestResponse(booking.getGuest()) : null,
+            booking.getStartDate(),
+            booking.getEndDate(),
+            booking.getBreakfast(),
+            booking.getConfirmed(), 
+            booking.getCreatedAt()
+        );
+    }
+
+    public static GuestResponse toGuestResponse(Guest guest) {
+        return new GuestResponse(
+            guest.getId(),
+            guest.getFirstName(),
+            guest.getLastName(),
+            guest.getEmail()
+        );
+    }
+
     public static PageResponse<HotelResponse> toHotelPage(Page<Hotel> page) {
         List<HotelResponse> content = page.getContent().stream()
                 .map(ResponseMapper::toHotelResponse)
@@ -56,6 +82,20 @@ public final class ResponseMapper {
                 .map(ResponseMapper::toRoomResponse)
                 .toList();
         return PageResponse.from(page, content);
+    }
+
+    public static List<GuestResponse> toGuestResponses(List<Guest> guests) {
+        if (guests == null) {
+            return Collections.emptyList();
+        }
+        return guests.stream().map(ResponseMapper::toGuestResponse).toList();
+    }
+
+    public static List<BookingResponse> toBookingResponses(List<Booking> bookings) {
+        if (bookings == null) {
+            return Collections.emptyList();
+        }
+        return bookings.stream().map(ResponseMapper::toBookingResponse).toList();
     }
 
     private static List<FeatureResponse> toFeatureResponses(List<Feature> features) {

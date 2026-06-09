@@ -7,6 +7,7 @@
 - **U2** – `GET /rooms`, `GET /rooms/{id}` (pagination, features, 8 rooms seed data)
 - **U3** – `GET /rooms/{id}/availability` (date validation, overlap check, 400/404 errors)
 - Hotels API, JPA entities, `data.sql`, CORS, H2 + MySQL profile
+- **U4** – Booking flow (backend: `POST /bookings`, guest APIs)
 
 ### Done – Frontend
 

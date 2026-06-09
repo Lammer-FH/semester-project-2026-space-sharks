@@ -19,13 +19,13 @@ export const useRoomStore = defineStore('rooms', {
   },
 
   actions: {
-    async fetchRooms(page = 0) {
+    async fetchRooms(page = 0, hotelId = 1) {
       this.loading = true;
       this.error = null;
       try {
         const response = await api.get<PaginatedResponse<Room>>('/rooms', {
           params: {
-            hotel_id: 1,
+            hotel_id: hotelId,
             page,
             size: this.pageSize,
           },

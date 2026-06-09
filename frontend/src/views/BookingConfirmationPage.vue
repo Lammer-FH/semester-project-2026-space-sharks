@@ -144,6 +144,10 @@
 
         <!-- Actions -->
         <div class="actions no-print">
+          <AppButton expand="block" color="primary" @click="printConfirmation">
+            <ion-icon :icon="printOutline" slot="start" />
+            Print Confirmation
+          </AppButton>
           <AppButton expand="block" fill="outline" color="primary" router-link="/rooms">
             Browse More Rooms
           </AppButton>
@@ -171,6 +175,7 @@ import {
   trainOutline,
   carOutline,
   airplaneOutline,
+  printOutline,
 } from 'ionicons/icons';
 import PageLayout from '@/components/templates/PageLayout.vue';
 import AppButton from '@/components/atoms/AppButton.vue';
@@ -207,6 +212,26 @@ function formatDate(dateStr: string): string {
   });
 }
 
+function printConfirmation() {
+  const content = document.querySelector('ion-content');
+  if (content?.shadowRoot) {
+    const style = document.createElement('style');
+    style.setAttribute('data-print', '');
+    style.textContent = `
+      @media print {
+        .inner-scroll, :host {
+          overflow: visible !important;
+          position: static !important;
+          height: auto !important;
+          max-height: none !important;
+          contain: none !important;
+        }
+      }
+    `;
+    content.shadowRoot.appendChild(style);
+  }
+  window.print();
+}
 </script>
 
 <style scoped>
@@ -323,5 +348,67 @@ function formatDate(dateStr: string): string {
 .status-message {
   text-align: center;
   padding: 48px 16px;
+}
+</style>
+
+<style>
+@media print {
+  /* Hide navigation, menu, header toolbar */
+  ion-menu,
+  ion-header,
+  ion-toolbar,
+  ion-tab-bar,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Break out of Ionic's fixed scroll container */
+  html,
+  body,
+  ion-app,
+  ion-router-outlet,
+  ion-page,
+  ion-content,
+  .ion-page,
+  ion-content .inner-scroll {
+    overflow: visible !important;
+    position: static !important;
+    contain: none !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  ion-content {
+    --background: white;
+    --offset-top: 0 !important;
+    --offset-bottom: 0 !important;
+    display: block !important;
+  }
+
+  /* Target the shadow DOM scroll container */
+  ion-content::part(scroll) {
+    overflow: visible !important;
+    position: static !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  /* Clean card styling for print */
+  ion-card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+  }
+
+  /* Hide map iframe (won't render in print) */
+  .map-wrapper {
+    display: none !important;
+  }
+
+  /* General print cleanup */
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
 </style>

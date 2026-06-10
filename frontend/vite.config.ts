@@ -3,10 +3,13 @@
 import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 
-// https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+const env = loadEnv(mode, process.cwd(), '')
+const apiTarget = env.VITE_API_URL || 'http://localhost:8081'
+
+return {
   plugins: [
     vue(),
     legacy()
@@ -17,13 +20,14 @@ export default defineConfig({
     },
   },
   server: {
+    host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://localhost:8081',
+        target: apiTarget,
         changeOrigin: true,
       },
       '/images': {
-        target: 'http://localhost:8081/api/v1',
+        target: `${apiTarget}/api/v1`,
         changeOrigin: true,
       },
     },
@@ -32,4 +36,5 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom'
   }
+}
 })

@@ -2,12 +2,14 @@
 
 Spring Boot backend and Ionic/Vue frontend for the hotel booking app (AWT 2026).
 
-## Milestone 2 – Backend
+## Quick start (local docker environment)
 
-**Done:** rooms (U2), availability (U3), hotels, JPA schema, seed data, CORS.  
-**Final delivery:** guest and booking endpoints (stubs return `501 Not Implemented`).
+```
+docker compose up -d --build
+```
 
-API spec: [API_specification.md](API_specification.md) · DB design: [DB_Design.md](DB_Design.md)
+The app then available at: `http://localhost:3000`
+
 
 ## Backend
 

@@ -26,5 +26,19 @@ services:
       db:
         condition: service_healthy
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:5173"
+    environment:
+      - VITE_API_URL=http://backend:8081
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
 volumes:
   mysql-data:
